@@ -36,4 +36,26 @@
 
     集成测试：也叫组装测试或者联合测试。在单元测试的基础上，将所有模块按照涉及要求组装成为子系统或系统，进行集成测试。
 ```
+### 6.Jest 初始化配置
+```
+直接使用npx命令来进行初始化 npx jest --init
 
+之后会有一些选项，你根据自己的需要进行选择就可以了：
+
+Choose the test environment that will be used for testing ? 代码是运行在Node环境还是Web环境下？
+
+Do you want Jest to add coverage reports ? 是否生成测试覆盖率文件？
+
+Automatically clear mock calls and instrances between every test?是否需要在测试之后清楚模拟调用的一些东西？
+
+在这三个选项选择之后，你会发现你的工程根目录下多了一个jest.config.js的文件。打开文件你可以看到里边有很多Jest的配置项。
+```
+## coverageDirectroy详解
+```
+ 代码测试覆盖率，就是我们的测试代码，对功能性代码和业务逻辑代码作了百分多少的测试，这个百分比，就叫做代码测试覆盖率。
+ coverageDirectroy的配置是用来打开代码覆盖率的，如果我们把代码写成下面的样子,就说明打开了代码覆盖率的这个选项。
+ coverageDirectory : "coverage" 
+ 当这个选项被打开后，我们就可以使用下面的命令,jest就会自动给我们生成一个代码测试覆盖率的说明。
+ npx jest --coverage
+ ![avatar](/img/1.jpg)
+```
