@@ -29,6 +29,15 @@
     }
     vscode终端输入yarn test 或者 npm run test 就可以测试所有符合条件的文件了
     npm run test example.test.js 就可以测试单独的这一个文件
+
+```
+## 开启自动测试
+```
+  在scripts中
+    "scripts": {
+        "test": "jest --watchAll"
+    },
+    修改保存后，我们在终端再次运行npm run test,这时候测试一次后，它并没有结束，而是等待测试文件的变化，变化后就会自动进行测试
 ```
 ### 5.单元测试和集成测试的区别
 ```
@@ -50,13 +59,84 @@ Automatically clear mock calls and instrances between every test?是否需要在
 
 在这三个选项选择之后，你会发现你的工程根目录下多了一个jest.config.js的文件。打开文件你可以看到里边有很多Jest的配置项。
 ```
-## coverageDirectroy详解
+  ## coverageDirectroy详解
 ```
  代码测试覆盖率，就是我们的测试代码，对功能性代码和业务逻辑代码作了百分多少的测试，这个百分比，就叫做代码测试覆盖率。
  coverageDirectroy的配置是用来打开代码覆盖率的，如果我们把代码写成下面的样子,就说明打开了代码覆盖率的这个选项。
  coverageDirectory : "coverage" 
  当这个选项被打开后，我们就可以使用下面的命令,jest就会自动给我们生成一个代码测试覆盖率的说明。
  npx jest --coverage
- 
+ 不仅会有一个简单的终端图表，还会生成一个coverage的文件夹，这里边有很多文件。
 ```
 ![avatar](/img/1.jpg)
+
+## 那么npx是什么呢？
+```
+ 在 npm version >= 5.2.0 开始，自动安装了npx。 npx 会帮你执行依赖包里的二进制文件。 
+ npx 会自动查找当前依赖包中的可执行文件，如果找不到，就会去 PATH 里找。如果依然找不到，就会帮你安装！
+```
+### 7.Jest中的匹配器
+```
+   1)toBe() 匹配器 是在工作中最常用的一种匹配器，简单的理解它就是相等。这个相当是等同于===的，也就是我们常说的严格相等。
+        test('测试严格相等',()=>{
+            const a = {number:'007'}   
+            expect(a).toBe({number:'007'})
+        });
+        测试应该是FAIL ,因为这个不是完全相等的，引用地址不同
+```
+```
+   2)toEqual() 匹配器 可以把它理解成只要内容相等，就可以通过测试，比如修改代码如下:
+        test('测试严格相等',()=>{
+            const a = {number:'007'}   
+            expect(a).toEqual({number:'007'})
+        });
+        测试应该是PASS ,当你不严格匹配但要求值相等时时就可以使用toEqual（）匹配器
+```
+```
+   3)toBeNull() 匹配器 只匹配null值，需要注意的是不匹配undefined的值。
+        test('toBeNull测试',()=>{
+            const a = null   
+            expect(a).toBeNull()
+        }) 
+        测试应该是PASS ,但是如果我们把a的值改为undefined，测试用例就通过不了啦。
+```
+```
+   4)toBeUndifined() 匹配器 匹配undefined。
+        test('toBeNull测试',()=>{
+            const a = undefined   
+            expect(a).toBeUndefined()
+        }) 
+        测试应该是PASS ,但是如果我们把a的值改为空字符串，测试用例就通过不了啦。
+```
+```
+   5)toBeDefined() 匹配器 只要定义过了，都可以匹配成功。
+        test('toBeNull测试',()=>{
+            const a = 'test';   
+            expect(a).toBeDefined()
+        }) 
+        测试应该是PASS ,这里需要注意的是，给一个null值也是可以通过测试的。
+```
+```
+   6)toBeTruthy() 匹配器 这个是true和false匹配器，就相当于判断真假的。
+        test('toBeTruthy 测试',()=>{
+            const a = 0
+            expect(a).toBeTruthy()
+        }) 
+        这样测试就过不去了，因为这里的0，如果判断真假时，就是false，所以无法通过。同样道理null也是无法通过的。 但是我们给个1或者非空字符串，就可以通过测试了。
+```
+```
+   7)toBeFalsy() 匹配器 这个匹配器只要是返回的false就可以通过测试。
+        test('toBeNull测试',()=>{
+            const a = 'test';   
+            expect(a).toBeDefined()
+        }) 
+        测试应该是PASS。
+```
+```
+   8)toBeDefined() 匹配器 只要定义过了，都可以匹配成功。
+        test('toBeNull测试',()=>{
+            const a = 'test';   
+            expect(a).toBeDefined()
+        }) 
+        测试应该是PASS ,这里需要注意的是，给一个null值也是可以通过测试的。
+```
