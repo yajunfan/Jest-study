@@ -57,5 +57,6 @@ Automatically clear mock calls and instrances between every test?是否需要在
  coverageDirectory : "coverage" 
  当这个选项被打开后，我们就可以使用下面的命令,jest就会自动给我们生成一个代码测试覆盖率的说明。
  npx jest --coverage
- ![avatar](/img/1.jpg)
+ 
 ```
+![avatar](/img/1.jpg)
